@@ -52,6 +52,6 @@ int main() {
 	//Chain d(om, 5);
 	//d.Unscramble();
 	//d.Render().writeToFile("images-output/unscram-from-file.png");
-	
+	cout << "hello?"
 	return 0;
 }
