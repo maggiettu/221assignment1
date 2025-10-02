@@ -13,7 +13,7 @@ int Block::Width() const
 }
 
 // draws the current block into im
-void Block::Render(PNG &im, int x) const
+void Block::Render(PNG& im, int x) const
 {
     for (int i = 0; i < Width(); i++)
     {
