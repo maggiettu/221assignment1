@@ -28,8 +28,28 @@ Chain::~Chain()
  */
 Chain::Node *Chain::InsertAfter(Node *p, const Block &ndata)
 {
-    /* your code here */
-    return nullptr;
+    Node* newNode = new Node(ndata);
+
+    // insert new head node 
+    if (p == nullptr) {
+        newNode->next = head_;
+        newNode->prev = nullptr;
+        head_->prev = newNode;
+    } else {
+        newNode->next = p->next;
+        newNode->prev = p;
+        
+        // if p is not the last 
+        if(p->next != nullptr) {
+            p->next->prev = newNode;
+            p->next = newNode;
+        }
+        // end of list, dont need to change any more pointers
+
+    }
+    
+    length_++;
+    return newNode;
 }
 
 /**
