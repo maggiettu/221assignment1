@@ -3,23 +3,22 @@
 #include <iostream>
 
 int Block::Height() const {
-	/* your code here */
-	return 0;
+	return data.size();
 }
 
 int Block::Width() const {
-	/* your code here */
-	return 0;
+	return data[0].size();
 }
 
 void Block::Render(PNG &im, int x) const {
 	/* your code here */
 
-	
 }
 
 void Block::Build(PNG &im, int x, int width) {
-	/* your code here */
-
-	
+	for (int i = 0; i < 10; i++) {
+        for(int j = x; j <= width; j++) {
+            // save da pixel
+        }
+    }
 }
