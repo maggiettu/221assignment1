@@ -38,8 +38,8 @@ Chain::Node *Chain::InsertAfter(Node *p, const Block &ndata)
         if (head_ != nullptr)
         {
             head_->prev = newNode;
-            head_ = newNode;
         }
+        head_ = newNode;
     }
     else
     {
@@ -50,8 +50,9 @@ Chain::Node *Chain::InsertAfter(Node *p, const Block &ndata)
         if (p->next != nullptr)
         {
             p->next->prev = newNode;
-            p->next = newNode;
         }
+        p->next = newNode;
+        
         // end of list, dont need to change any more pointers
     }
 
