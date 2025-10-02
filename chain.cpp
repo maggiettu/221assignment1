@@ -2,7 +2,6 @@
 #include <cmath>
 #include <iostream>
 
-
 // PA1 functions
 // Complete all of the missing implementation
 // and submit this file for grading.
@@ -11,7 +10,8 @@
  * Destroys the current Chain. This function should ensure that
  * memory does not leak on destruction of a chain.
  */
-Chain::~Chain() {
+Chain::~Chain()
+{
 	Clear();
 }
 
@@ -26,7 +26,8 @@ Chain::~Chain() {
  *            If p is NULL, the new node becomes the head of the chain.
  * @param ndata = The data to be inserted.
  */
-Chain::Node * Chain::InsertAfter(Node * p, const Block &ndata) {
+Chain::Node *Chain::InsertAfter(Node *p, const Block &ndata)
+{
 	/* your code here */
 	return nullptr;
 }
@@ -37,26 +38,29 @@ Chain::Node * Chain::InsertAfter(Node * p, const Block &ndata) {
  * If p or q is NULL or p==q, do nothing.
  * Change the chain's head pointer if necessary.
  */
-void Chain::Swap(Node *p, Node *q) {
+void Chain::Swap(Node *p, Node *q)
+{
 	/* your code here */
-
-    
 }
 
 /**
  * Destroys all dynamically allocated memory associated with the
  * current Chain class.
  */
-void Chain::Clear() {
+void Chain::Clear()
+{
 	// basically loop through the chain and set every node to null
-	Node* curr = head_;
-	
-	if (curr == nullptr) {
+	Node *curr = head_;
+
+	if (curr == nullptr)
+	{
+		length_ = 0;
 		return;
 	}
 
-	while (curr != nullptr) {
-		Node* nextNode = curr->next;
+	while (curr != nullptr)
+	{
+		Node *nextNode = curr->next;
 		delete curr;
 		curr = nextNode;
 	}
@@ -71,10 +75,32 @@ void Chain::Clear() {
  * independent. This function is used in both the copy
  * constructor and the assignment operator for Chains.
  */
-void Chain::Copy(Chain const &other) {
-	/* your code here */
+void Chain::Copy(Chain const &other)
+{
+	head_ = nullptr;
+	length_ = 0;
+	Node *otherCurr = other.head_; // sets the head ptr for chain to copy
+
+	if (otherCurr == nullptr) // finish early if chain to copy is empty
+	{
+		return;
+	}
+
+	Node *curr = new Node(otherCurr->data);
+	head_ = curr; // set current head to the start of curr chain
+	length_++;
 	
-	
+	otherCurr = otherCurr->next;
+
+	while (otherCurr != nullptr) // while theres still elements in the other chain
+	{
+		Node* newNode = new Node(otherCurr->data);
+		curr->next = newNode; // make current node new nodes data
+		newNode->prev = curr;
+		curr = curr->next;
+		otherCurr = otherCurr->next; // move other list forwards
+		length_++;
+	}
 }
 
 /**
@@ -83,9 +109,10 @@ void Chain::Copy(Chain const &other) {
  * are placed in the image left to right in order
  * of their occurrence in the chain.
  */
-PNG Chain::Render() {
-    /* your code here */
-    return PNG();
+PNG Chain::Render()
+{
+	/* your code here */
+	return PNG();
 }
 
 /* Modifies the current chain:
@@ -104,15 +131,13 @@ PNG Chain::Render() {
  *    among the remaining blocks, move (swap) it to follow B's node,
  *    then repeat to unscramble the chain/image.
  */
-void Chain::Unscramble() {
+void Chain::Unscramble()
+{
 	/* your code here */
-
-    
 }
 
 /**************************************************
-* IF YOU HAVE DECLARED PRIVATE FUNCTIONS IN       *
-* chain-private.h, COMPLETE THEIR IMPLEMENTATIONS *
-* HERE                                            *
-**************************************************/
-
+ * IF YOU HAVE DECLARED PRIVATE FUNCTIONS IN       *
+ * chain-private.h, COMPLETE THEIR IMPLEMENTATIONS *
+ * HERE                                            *
+ **************************************************/
