@@ -61,6 +61,7 @@ void Chain::Clear() {
 		curr = nextNode;
 	}
 	head_ = nullptr;
+	length_ = 0;
 }
 
 /**
