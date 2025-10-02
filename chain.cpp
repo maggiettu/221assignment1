@@ -275,7 +275,7 @@ void Chain::Unscramble()
 		}
 	}
 
-	swap(head_, first);
+	Swap(head_, first);
 
 	// sorts the rest
 	Node *curr2 = head_;
@@ -294,7 +294,7 @@ void Chain::Unscramble()
 			}
 		}
 
-		swap(curr2->next, best); // swaps the closest distance with the next link
+		Swap(curr2->next, best); // swaps the closest distance with the next link
 		curr2 = curr2->next; // goes to the next iteration yayyyy
 	}
 }
