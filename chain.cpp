@@ -277,7 +277,26 @@ void Chain::Unscramble()
 
 	swap(head_, first);
 
-	
+	// sorts the rest
+	Node *curr2 = head_;
+	while (curr2 != nullptr && curr2->next != nullptr)
+	{
+		Node *best = curr2->next;
+		double bestDistance = curr2->data.DistanceTo(best->data);
+
+		for (Node *check = curr2->next->next; check; check = check->next)
+		{
+			double currDistance = curr2->data.DistanceTo(check->data);
+			if (currDistance < bestDistance) // finds closest distancce
+			{
+				bestDistance = currDistance; // updates closest distance if needed
+				best = check;
+			}
+		}
+
+		swap(curr2->next, best); // swaps the closest distance with the next link
+		curr2 = curr2->next; // goes to the next iteration yayyyy
+	}
 }
 
 /**************************************************
