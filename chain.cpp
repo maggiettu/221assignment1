@@ -12,9 +12,7 @@
  * memory does not leak on destruction of a chain.
  */
 Chain::~Chain() {
-	/* your code here */
-
-    
+	Clear();
 }
 
 /**
@@ -50,9 +48,19 @@ void Chain::Swap(Node *p, Node *q) {
  * current Chain class.
  */
 void Chain::Clear() {
-	/* your code here */
+	// basically loop through the chain and set every node to null
+	Node* curr = head_;
+	
+	if (curr == nullptr) {
+		return;
+	}
 
-    
+	while (curr != nullptr) {
+		Node* nextNode = curr->next;
+		delete curr;
+		curr = nextNode;
+	}
+	head_ = nullptr;
 }
 
 /**

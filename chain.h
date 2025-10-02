@@ -31,7 +31,7 @@ class Chain {
             public:
                 // default constructor
                 Node() : next(NULL), prev(NULL), data(Block()) {};
-                    // data provided constructor
+                // data provided constructor
                 Node(const Block &ndata) : next(NULL), prev(NULL), data(ndata) {};
 
                 Node *next;       // ptr to next node in chain
