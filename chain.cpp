@@ -12,7 +12,7 @@
  */
 Chain::~Chain()
 {
-    Clear();
+	Clear();
 }
 
 /**
@@ -28,36 +28,36 @@ Chain::~Chain()
  */
 Chain::Node *Chain::InsertAfter(Node *p, const Block &ndata)
 {
-    Node *newNode = new Node(ndata);
+	Node *newNode = new Node(ndata);
 
-    // insert new head node
-    if (p == nullptr)
-    {
-        newNode->next = head_;
-        newNode->prev = nullptr;
-        if (head_ != nullptr)
-        {
-            head_->prev = newNode;
-        }
-        head_ = newNode;
-    }
-    else
-    {
-        newNode->next = p->next;
-        newNode->prev = p;
+	// insert new head node
+	if (p == nullptr)
+	{
+		newNode->next = head_;
+		newNode->prev = nullptr;
+		if (head_ != nullptr)
+		{
+			head_->prev = newNode;
+		}
+		head_ = newNode;
+	}
+	else
+	{
+		newNode->next = p->next;
+		newNode->prev = p;
 
-        // if p is not the last
-        if (p->next != nullptr)
-        {
-            p->next->prev = newNode;
-        }
-        p->next = newNode;
-        
-        // end of list, dont need to change any more pointers
-    }
+		// if p is not the last
+		if (p->next != nullptr)
+		{
+			p->next->prev = newNode;
+		}
+		p->next = newNode;
 
-    length_++;
-    return newNode;
+		// end of list, dont need to change any more pointers
+	}
+
+	length_++;
+	return newNode;
 }
 
 /**
@@ -68,51 +68,66 @@ Chain::Node *Chain::InsertAfter(Node *p, const Block &ndata)
  */
 void Chain::Swap(Node *p, Node *q)
 {
-    if (!q || !p || p == q)
-    {
-        return;
-    }
+	if (!q || !p || p == q)
+	{
+		return;
+	}
 
-    Node *pPrev = p->prev;
-    Node *pNext = p->next;
-    Node *qPrev = q->prev;
-    Node *qNext = q->next;
+	Node *pPrev = p->prev;
+	Node *pNext = p->next;
+	Node *qPrev = q->prev;
+	Node *qNext = q->next;
 
-    // check if p and q are next to eachother, since then they would have same neighbors
-    if (p->next == q)
-    {
-        if (pPrev != nullptr) pPrev->next = q;
-        if (qNext != nullptr) qNext->prev = p;
-        q->prev = pPrev;
-        q->next = p;
-        p->prev = q;
-        p->next = qNext;
-    } else if (q->next == p) {
-        if (qPrev != nullptr) qPrev->next = p;
-        if (pNext != nullptr) pNext->prev = q;
-        p->prev = qPrev;
-        p->next = q;
-        q->prev = p;
-        q->next = pNext;
-    } else {
-        if (pPrev != nullptr) pPrev->next = q;
-        if (pNext != nullptr) pNext->prev = q;
-        if (qPrev != nullptr) qPrev->next = p;
-        if (qNext != nullptr) qNext->prev = p;
+	// check if p and q are next to eachother, since then they would have same neighbors
+	if (p->next == q)
+	{
+		if (pPrev != nullptr)
+			pPrev->next = q;
+		if (qNext != nullptr)
+			qNext->prev = p;
+		q->prev = pPrev;
+		q->next = p;
+		p->prev = q;
+		p->next = qNext;
+	}
+	else if (q->next == p)
+	{
+		if (qPrev != nullptr)
+			qPrev->next = p;
+		if (pNext != nullptr)
+			pNext->prev = q;
+		p->prev = qPrev;
+		p->next = q;
+		q->prev = p;
+		q->next = pNext;
+	}
+	else
+	{
+		if (pPrev != nullptr)
+			pPrev->next = q;
+		if (pNext != nullptr)
+			pNext->prev = q;
+		if (qPrev != nullptr)
+			qPrev->next = p;
+		if (qNext != nullptr)
+			qNext->prev = p;
 
-        Node* tempPPrev = p->prev;
-        Node* tempPNext = p->next;
-        p->prev = q->prev;
-        p->next = q->next;
-        q->prev = tempPPrev;
-        q->next = tempPNext;
-    }
-    
-    if (head_ == p) {
-        head_ = q;
-    } else if (head_ == q) {
-        head_ = p;
-    }
+		Node *tempPPrev = p->prev;
+		Node *tempPNext = p->next;
+		p->prev = q->prev;
+		p->next = q->next;
+		q->prev = tempPPrev;
+		q->next = tempPNext;
+	}
+
+	if (head_ == p)
+	{
+		head_ = q;
+	}
+	else if (head_ == q)
+	{
+		head_ = p;
+	}
 }
 
 /**
@@ -121,23 +136,23 @@ void Chain::Swap(Node *p, Node *q)
  */
 void Chain::Clear()
 {
-    // basically loop through the chain and set every node to null
-    Node *curr = head_;
+	// basically loop through the chain and set every node to null
+	Node *curr = head_;
 
-    if (curr == nullptr)
-    {
-        length_ = 0;
-        return;
-    }
+	if (curr == nullptr)
+	{
+		length_ = 0;
+		return;
+	}
 
-    while (curr != nullptr)
-    {
-        Node *nextNode = curr->next;
-        delete curr;
-        curr = nextNode;
-    }
-    head_ = nullptr;
-    length_ = 0;
+	while (curr != nullptr)
+	{
+		Node *nextNode = curr->next;
+		delete curr;
+		curr = nextNode;
+	}
+	head_ = nullptr;
+	length_ = 0;
 }
 
 /**
@@ -149,32 +164,32 @@ void Chain::Clear()
  */
 void Chain::Copy(Chain const &other)
 {
-    Clear();
+	Clear();
 
-    head_ = nullptr;
-    length_ = 0;
-    Node *otherCurr = other.head_; // sets the head ptr for chain to copy
+	head_ = nullptr;
+	length_ = 0;
+	Node *otherCurr = other.head_; // sets the head ptr for chain to copy
 
-    if (otherCurr == nullptr) // finish early if chain to copy is empty
-    {
-        return;
-    }
+	if (otherCurr == nullptr) // finish early if chain to copy is empty
+	{
+		return;
+	}
 
-    Node *curr = new Node(otherCurr->data);
-    head_ = curr; // set current head to the start of curr chain
-    length_++;
+	Node *curr = new Node(otherCurr->data);
+	head_ = curr; // set current head to the start of curr chain
+	length_++;
 
-    otherCurr = otherCurr->next;
+	otherCurr = otherCurr->next;
 
-    while (otherCurr != nullptr) // while theres still elements in the other chain
-    {
-        Node *newNode = new Node(otherCurr->data);
-        curr->next = newNode; // make current node new nodes data
-        newNode->prev = curr;
-        curr = curr->next;
-        otherCurr = otherCurr->next; // move other list forwards
-        length_++;
-    }
+	while (otherCurr != nullptr) // while theres still elements in the other chain
+	{
+		Node *newNode = new Node(otherCurr->data);
+		curr->next = newNode; // make current node new nodes data
+		newNode->prev = curr;
+		curr = curr->next;
+		otherCurr = otherCurr->next; // move other list forwards
+		length_++;
+	}
 }
 
 /**
@@ -185,31 +200,31 @@ void Chain::Copy(Chain const &other)
  */
 PNG Chain::Render()
 {
-    if (head_ == nullptr)
-    {
-        return PNG();
-    }
+	if (head_ == nullptr)
+	{
+		return PNG();
+	}
 
-    int imgHeight = head_->data.Height();
-    int blockWidth = head_->data.Width();
-    int imgWidth = blockWidth * 10;
+	int imgHeight = head_->data.Height();
+	int blockWidth = head_->data.Width();
+	int imgWidth = blockWidth * 10;
 
-    PNG img;
-    img.resize(imgWidth, imgHeight);
+	PNG img;
+	img.resize(imgWidth, imgHeight);
 
-    Node *p = head_;
-    int blockIndex = 0;
-    // traverse list and add each block to PNG()
-    while (p != nullptr)
-    {
-        // add the pixels
-        p->data.Render(img, imgWidth * blockIndex);
+	Node *p = head_;
+	int blockIndex = 0;
+	// traverse list and add each block to PNG()
+	while (p != nullptr)
+	{
+		// add the pixels
+		p->data.Render(img, imgWidth * blockIndex);
 
-        // increment
-        blockIndex++;
-        p = p->next;
-    }
-    return img;
+		// increment
+		blockIndex++;
+		p = p->next;
+	}
+	return img;
 }
 
 /* Modifies the current chain:
@@ -230,7 +245,39 @@ PNG Chain::Render()
  */
 void Chain::Unscramble()
 {
-    /* your code here */
+	if (head_ == nullptr || head_->next == nullptr)
+	{
+		return;
+	}
+
+	Node *first = head_;
+	double maxMinDist = -100.0;
+
+	// looking for the leftmost fella
+	for (Node *curr = head_; curr; curr = curr->next)
+	{
+		double minDist = 100.0;
+		for (Node *other = head_; other; other = other->next)
+		{
+			if (other != curr)
+			{
+				double dist = other->data.DistanceTo(curr->data);
+				if (dist < minDist)
+				{
+					minDist = dist;
+				}
+			}
+		}
+		if (minDist > maxMinDist)
+		{
+			maxMinDist = minDist;
+			first = curr;
+		}
+	}
+
+	swap(head_, first);
+
+	
 }
 
 /**************************************************
