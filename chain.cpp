@@ -205,25 +205,34 @@ PNG Chain::Render()
 		return PNG();
 	}
 
-	int imgHeight = head_->data.Height();
-	int blockWidth = head_->data.Width();
-	int imgWidth = blockWidth * 10;
+	int imgHeight = 0;
+	int imgWidth = 0;
 
-	PNG img;
-	img.resize(imgWidth, imgHeight);
-
-	Node *p = head_;
-	int blockIndex = 0;
-	// traverse list and add each block to PNG()
+	Node* p = head_;
+	// traverse list to get width and height
 	while (p != nullptr)
 	{
-		// add the pixels
-		p->data.Render(img, imgWidth * blockIndex);
-
-		// increment
-		blockIndex++;
+        imgHeight += p->data.Width();
+        if (p->data.Height() > imgHeight) {
+            imgHeight = p->data.Height();
+        }
 		p = p->next;
 	}
+
+    PNG img;
+	img.resize(imgWidth, imgHeight);
+
+    p = head_;
+    int renderWidth = 0;
+
+    while (p != nullptr)
+	{
+        Block currentBlock = p->data;
+        currentBlock.Render(img, renderWidth);
+        renderWidth += currentBlock.Width();
+        p = p->next;
+    }
+
 	return img;
 }
 
