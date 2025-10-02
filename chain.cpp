@@ -111,8 +111,31 @@ void Chain::Copy(Chain const &other)
  */
 PNG Chain::Render()
 {
-	/* your code here */
-	return PNG();
+    if (head_ == nullptr)
+    {
+        return PNG();
+    }
+
+    int imgHeight = head_->data.Height();
+    int blockWidth = head_->data.Width();
+    int imgWidth = blockWidth * 10;
+
+    PNG img;
+    img.resize(imgWidth, imgHeight);
+
+    Node* p = head_;
+    int blockIndex = 0;
+    // traverse list and add each block to PNG()
+    while (p->next != nullptr)
+    {
+        // add the pixels
+        p->data.Render(img, imgWidth * blockIndex);
+
+        // increment
+        blockIndex++;
+        p = p->next;
+    }
+    return img;
 }
 
 /* Modifies the current chain:
