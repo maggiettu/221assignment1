@@ -12,7 +12,7 @@
  */
 Chain::~Chain()
 {
-    Clear();
+	Clear();
 }
 
 /**
@@ -60,7 +60,7 @@ Chain::Node *Chain::InsertAfter(Node *p, const Block &ndata)
  */
 void Chain::Swap(Node *p, Node *q)
 {
-    /* your code here */
+	/* your code here */
 }
 
 /**
@@ -69,22 +69,23 @@ void Chain::Swap(Node *p, Node *q)
  */
 void Chain::Clear()
 {
-    // basically loop through the chain and set every node to null
-    Node *curr = head_;
+	// basically loop through the chain and set every node to null
+	Node *curr = head_;
 
-    if (curr == nullptr)
-    {
-        return;
-    }
+	if (curr == nullptr)
+	{
+		length_ = 0;
+		return;
+	}
 
-    while (curr != nullptr)
-    {
-        Node *nextNode = curr->next;
-        delete curr;
-        curr = nextNode;
-    }
-    head_ = nullptr;
-    length_ = 0;
+	while (curr != nullptr)
+	{
+		Node *nextNode = curr->next;
+		delete curr;
+		curr = nextNode;
+	}
+	head_ = nullptr;
+	length_ = 0;
 }
 
 /**
@@ -96,7 +97,30 @@ void Chain::Clear()
  */
 void Chain::Copy(Chain const &other)
 {
-    /* your code here */
+	head_ = nullptr;
+	length_ = 0;
+	Node *otherCurr = other.head_; // sets the head ptr for chain to copy
+
+	if (otherCurr == nullptr) // finish early if chain to copy is empty
+	{
+		return;
+	}
+
+	Node *curr = new Node(otherCurr->data);
+	head_ = curr; // set current head to the start of curr chain
+	length_++;
+	
+	otherCurr = otherCurr->next;
+
+	while (otherCurr != nullptr) // while theres still elements in the other chain
+	{
+		Node* newNode = new Node(otherCurr->data);
+		curr->next = newNode; // make current node new nodes data
+		newNode->prev = curr;
+		curr = curr->next;
+		otherCurr = otherCurr->next; // move other list forwards
+		length_++;
+	}
 }
 
 /**
@@ -152,7 +176,7 @@ PNG Chain::Render()
  */
 void Chain::Unscramble()
 {
-    /* your code here */
+	/* your code here */
 }
 
 /**************************************************
