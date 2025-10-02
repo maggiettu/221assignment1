@@ -212,7 +212,7 @@ PNG Chain::Render()
 	// traverse list to get width and height
 	while (p != nullptr)
 	{
-        imgHeight += p->data.Width();
+        imgWidth += p->data.Width();
         if (p->data.Height() > imgHeight) {
             imgHeight = p->data.Height();
         }

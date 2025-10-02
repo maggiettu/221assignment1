@@ -21,6 +21,10 @@ int Block::Width() const {
 // draws the current block into im
 void Block::Render(PNG& im, int x) const
 {
+    if (im.width() == 0 || im.height() == 0) {
+        return;
+    }
+    
     for (int i = 0; i < Width(); i++)
     {
         for (int j = 0; j < Height(); j++)
