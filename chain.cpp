@@ -34,7 +34,10 @@ Chain::Node *Chain::InsertAfter(Node *p, const Block &ndata)
     if (p == nullptr) {
         newNode->next = head_;
         newNode->prev = nullptr;
-        head_->prev = newNode;
+        if (head_ != nullptr)  {
+            head_->prev = newNode;
+            head_ = newNode;
+        }
     } else {
         newNode->next = p->next;
         newNode->prev = p;
@@ -60,7 +63,13 @@ Chain::Node *Chain::InsertAfter(Node *p, const Block &ndata)
  */
 void Chain::Swap(Node *p, Node *q)
 {
-	/* your code here */
+	if (!q || !p || p == q) {
+        return;
+    }
+
+    // finsih here
+    return;
+
 }
 
 /**
@@ -97,6 +106,8 @@ void Chain::Clear()
  */
 void Chain::Copy(Chain const &other)
 {
+    Clear();
+
 	head_ = nullptr;
 	length_ = 0;
 	Node *otherCurr = other.head_; // sets the head ptr for chain to copy
@@ -146,7 +157,7 @@ PNG Chain::Render()
     Node* p = head_;
     int blockIndex = 0;
     // traverse list and add each block to PNG()
-    while (p->next != nullptr)
+    while (p != nullptr)
     {
         // add the pixels
         p->data.Render(img, imgWidth * blockIndex);
