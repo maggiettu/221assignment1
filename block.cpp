@@ -2,24 +2,40 @@
 #include <cmath>
 #include <iostream>
 
-int Block::Height() const {
+int Block::Height() const
+{
     return data.size();
 }
 
-int Block::Width() const {
+int Block::Width() const
+{
     return data[0].size();
-
 }
 
-void Block::Render(PNG &im, int x) const {
-	for (int i = 0; i< Width(); i++) {
-        for(int j = 0; j < Height(); j++) {
+// draws the current block into im
+void Block::Render(PNG &im, int x) const
+{
+    for (int i = 0; i < Width(); i++)
+    {
+        for (int j = 0; j < Height(); j++)
+        {
             RGBAPixel *pixel = im.getPixel(x + i, j);
             *pixel = data[i][j];
         }
     }
-
 }
 
-void Block::Build(PNG &im, int x, int width) {
+void Block::Build(PNG &im, int x, int width)
+{
+    data.resize(width);
+
+    for (int i = 0; i < width; i++)
+    {
+        data[i].resize(im.height());
+        for (int j = 0; j < im.height(); j++)
+        {
+            RGBAPixel *pixel = im.getPixel(x + i, j);
+            data[i][j] = *pixel;
+        }
+    }
 }
